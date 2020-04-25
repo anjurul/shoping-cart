@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section >
+      <div id="mainSection"class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="minusButton" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="inputValue" type="text" class="form-control text-center" value="1">
+                           <button id="plusButton" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="phoneAmount">1219</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="caseMinusButton" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="caseInputValue" type="text" class="form-control text-center" value="1">
+                           <button id="casePlusButton" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span Id="caseAmount">59</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="subTotal">1278</span> </h5>
+                        <h5>$0</h5>
+                        <h5>$ <span id="Total">1278</span> </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button id="buttonId" type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="Congratulation" class="container  Congratulation">
+         <h1 class="d-flex justify-content-center align-items-center">Congratulation ! You are successfully purchased </h1>
+      </div>
+   </section>
+
+<!--------------------------------javaScript Part--------------------------------------------------->
+
+   <script>
+   const phoneAmount = document.getElementById("phoneAmount").innerText;
+      const phoneValue = parseFloat(phoneAmount);
+
+      const caseAmount = document.getElementById("caseAmount").innerText;
+      const caseValue = parseFloat(caseAmount);
+
+   
+   // Plus Button even handler
+   document.getElementById("plusButton").addEventListener("click", function(){
+      const inputValue = document.getElementById("inputValue").value;
+      const input = parseInt(inputValue);
+      const plusValue = input+1;
+      const phonePrice = plusValue * phoneValue;
+      document.getElementById("inputValue").value = plusValue;
+      document.getElementById("phoneAmount").innerText = phonePrice;
+
+      // function call for add phone price
+         addPriceFunction("subTotal",phoneValue);
+         addPriceFunction("Total",phoneValue);
+   });
+
+   // Minus Button Ever handler
+   document.getElementById("minusButton").addEventListener("click", function(){
+      const inputValue = document.getElementById("inputValue").value;
+      const input = parseInt(inputValue);
+      if (input>0) {
+         const plusValue = input-1;
+         const phonePrice = plusValue*phoneValue;
+         document.getElementById("inputValue").value = plusValue;
+         document.getElementById("phoneAmount").innerText = phonePrice;
+
+         // function call for add phone price
+         MinusPriceFunction("subTotal",phoneValue);
+         MinusPriceFunction("Total",phoneValue);
+      } 
+   });
+
+   //Case Plus Button even handler
+   document.getElementById("casePlusButton").addEventListener("click", function(){
+      const caseInputValue = document.getElementById("caseInputValue").value;
+      const caseInput = parseInt(caseInputValue);
+      const casePlusValue = caseInput+1;
+      const casePrice = caseValue*casePlusValue;
+      document.getElementById("caseInputValue").value = casePlusValue;
+      document.getElementById("caseAmount").innerText = casePrice;
+
+      // function call for add phone price
+         addPriceFunction("subTotal",caseValue);
+         addPriceFunction("Total",caseValue);
+   });
+
+ // case Minus button handler
+ document.getElementById("caseMinusButton").addEventListener("click", function(){
+      const caseInputValue = document.getElementById("caseInputValue").value;
+      const caseInput = parseInt(caseInputValue);
+      if (caseInput>0) {
+         const casePlusValue = caseInput - 1;
+         const casePrice = caseValue * casePlusValue;
+         document.getElementById("caseInputValue").value = casePlusValue;
+         document.getElementById("caseAmount").innerText = casePrice;
+      }
+
+         // function call for add phone price
+         MinusPriceFunction("subTotal",caseValue);
+         MinusPriceFunction("Total",caseValue);
+   });
+
+      // Add Price Function 
+      function addPriceFunction(id,caseValue){
+         const Total = document.getElementById(id).innerText;
+         const TotalValue = parseInt(Total);
+         const totalAmount =TotalValue + caseValue;
+         document.getElementById(id).innerText = totalAmount;
+
+      }
+      // Minus Price Function
+      function MinusPriceFunction(id,phoneValue){
+         const subTotal = document.getElementById(id).innerText;
+         const subTotalValue = parseFloat(subTotal);
+         const subTotalPrice = subTotalValue - phoneValue ;
+         document.getElementById(id).innerText = subTotalPrice;
+      }
+
+      // Congratulation Meassage  
+      document.getElementById("buttonId").addEventListener("click",function(){
+         alert("Are You Ready To Purchased ??");
+         document.getElementById("mainSection").style.display="none";
+         document.getElementById("Congratulation").style.display="block";
+         document.getElementById("Congratulation").style.color="green";
+      })
+
+   </script>
+</body>
+</html>
