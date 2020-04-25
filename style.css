@@ -53,3 +53,8 @@ body{
 	background-color: #2FBE70;
 	border: none;
 }
+
+#Congratulation{
+	display: none;
+	color: #2FBE70;
+}

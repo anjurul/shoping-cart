@@ -30,7 +30,7 @@
                            <button id="plusButton" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5>$ <span id="phoneAmount">1219</span> </h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <a href="#"><img src="images/remove.png" alt="" class="remove-item"></a>
                      </div>
                   </div>
                </div>
@@ -49,7 +49,7 @@
 
                         </div>
                         <h5>$ <span Id="caseAmount">59</span> </h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <a href="#"><img src="images/remove.png" alt="" class="remove-item"></a>
                      </div>
                   </div>
                </div>
@@ -71,7 +71,7 @@
                   </div>
                </div>
                <div class="col-md-12 pt-4 pb-4">
-                  <button id="buttonId" type="button" class="btn btn-success check-out">Check Out</button>
+                  <button id="checkOutBtn" type="button" class="btn btn-success check-out">Check Out</button>
                </div>
             </div>
          </div>
@@ -84,6 +84,31 @@
 <!--------------------------------javaScript Part--------------------------------------------------->
 
    <script>
+     if (document.readyState == "loading") {
+        document.addEventListener("DOMContentLoaded", ready)
+     } else {
+        ready()
+     };     
+
+     function ready() {
+         var removeCartItemBtn = document.getElementsByClassName("remove-item");
+         for (var i = 0; i < removeCartItemBtn.length; i++) {
+            var button = removeCartItemBtn[i];
+            button.addEventListener("click", removeCartItem)
+         }   
+      }
+   
+      function removeCartItem(event) {
+         var buttonClicked = event.target;
+         buttonClicked.parentElement.parentElement.parentElement.parentElement.remove()
+         
+         // MinusPriceFunction("subTotal",phoneValue);
+         // MinusPriceFunction("Total", phoneValue);
+         
+         // MinusPriceFunction("subTotal",caseValue);
+         // MinusPriceFunction("Total", caseValue);
+      };
+
    const phoneAmount = document.getElementById("phoneAmount").innerText;
       const phoneValue = parseFloat(phoneAmount);
 
@@ -167,12 +192,11 @@
          document.getElementById(id).innerText = subTotalPrice;
       }
 
-      // Congratulation Meassage  
-      document.getElementById("buttonId").addEventListener("click",function(){
+      // Congratulation Message  
+      document.getElementById("checkOutBtn").addEventListener("click",function(){
          alert("Are You Ready To Purchased ??");
          document.getElementById("mainSection").style.display="none";
-         document.getElementById("Congratulation").style.display="block";
-         document.getElementById("Congratulation").style.color="green";
+         document.getElementById("Congratulation").style.display="block";         
       })
 
    </script>
